@@ -34,7 +34,6 @@ class Wave:
         self.delta_alpha = []
         for val in range(0+number*11, 11+number*11, 1):
             self.delta_alpha.append(abs(alphaplus_gen[val] - alphaminus_gen[val])*60)  #заполнение дельта альфа
-        print(self.delta_alpha)
 
         self.wave_length = wave_lengths[number]
         self.omega = 2 * np.pi * 3 * 10**8 / self.wave_length       #осознание длины волны
@@ -58,7 +57,7 @@ class Wave:
         sigmax = sum(np.square(self.x))/len(self.x) - np.square(np.mean(self.x))
         sigmay = sum(np.square(self.y))/len(self.y) - np.square(np.mean(self.y))
 
-        self.sigma_m = np.sqrt((sigmax/sigmay - self.m*self.m)/9)
+        self.sigma_m = np.sqrt((sigmay/sigmax - self.m*self.m)/9)                   #случайно сигмах на сигмау делил анлаки
 
 
         plt.figure(1, figsize = (11.69, 8.27))
@@ -67,9 +66,8 @@ class Wave:
         plt.title(f"Зависимость \u03C8(B),рад. для \u03BB={self.wave_length * 10**9:.0f} нм")
         plt.show()
 
-        print(self.sigma_m)
 
-        delta_Verde.append(self.m*1.1*self.sigma_m / d)
+        delta_Verde.append(3.3*self.sigma_m/d)
         Verde.append(self.m/d)
 
 
